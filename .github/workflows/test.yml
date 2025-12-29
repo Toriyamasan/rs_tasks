@@ -17,9 +17,10 @@ jobs:
         shell: bash
         run: |
           source /opt/ros/humble/setup.bash
-          cd ..
-          mkdir -p ros2_ws/src
-          # リポジトリをワークスペースに移動してビルド
-          mv rs_tasks ros2_ws/src/mypkg
-          cd ros2_ws
+          # ワークスペースを作成
+          mkdir -p ~/ros2_ws/src
+          # 今のディレクトリ（リポジトリの中身）をワークスペースにコピー
+          cp -rf . ~/ros2_ws/src/mypkg
+          # ビルド実行
+          cd ~/ros2_ws
           colcon build
