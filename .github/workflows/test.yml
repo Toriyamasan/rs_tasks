@@ -3,15 +3,25 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-22.04
+    # 講義で推奨されているDockerイメージを指定
     container: ryuichiueda/ubuntu22.04-ros2-desktop-full:latest
     steps:
       - uses: actions/checkout@v3
       - name: build and test
         shell: bash
         run: |
+          # 1. ROS 2環境の読み込み
           source /opt/ros/humble/setup.bash
+          
+          # 2. ワークスペースのセットアップ
+          # GitHub Actionsはリポジトリ直下で実行されるため、
+          # ディレクトリ構造をROS 2の作法に合わせて組み替えます
           cd ..
           mkdir -p ros2_ws/src
+          
+          # リポジトリ（rs_tasks）をsrcの下に移動
           mv rs_tasks ros2_ws/src/mypkg
+          
+          # 3. ビルド実行
           cd ros2_ws
           colcon build
