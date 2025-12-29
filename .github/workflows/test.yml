@@ -3,25 +3,22 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-22.04
-    # 講義で推奨されているDockerイメージを指定
-    container: ryuichiueda/ubuntu22.04-ros2-desktop-full:latest
     steps:
       - uses: actions/checkout@v3
       - name: build and test
         shell: bash
         run: |
-          # 1. ROS 2環境の読み込み
-          source /opt/ros/humble/setup.bash
+          # ROS 2 Humble のインストール
+          sudo apt update && sudo apt install -y curl gnupg2 lsb-release
+          sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+          sudo apt update
+          sudo apt install -y ros-humble-ros-base python3-colcon-common-extensions
           
-          # 2. ワークスペースのセットアップ
-          # GitHub Actionsはリポジトリ直下で実行されるため、
-          # ディレクトリ構造をROS 2の作法に合わせて組み替えます
+          # ワークスペース構築とビルド
+          source /opt/ros/humble/setup.bash
           cd ..
           mkdir -p ros2_ws/src
-          
-          # リポジトリ（rs_tasks）をsrcの下に移動
           mv rs_tasks ros2_ws/src/mypkg
-          
-          # 3. ビルド実行
           cd ros2_ws
           colcon build
