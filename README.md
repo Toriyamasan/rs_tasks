@@ -1,6 +1,6 @@
 # mypkg
 
-[![test](https://github.com/Toriyamasan/mypkg/actions/workflows/test.yml/badge.svg)](https://github.com/Toriyamasan/mypkg/actions/workflows/test.yml)
+[![test](https://github.com/Toriyamasan/rs_tasks/actions/workflows/test.yml/badge.svg)](https://github.com/Toriyamasan/rs_tasks)
 
 角度（度数法）を送信し、受信側で弧度法（ラジアン）に変換して表示するROS 2パッケージです。
 
@@ -37,7 +37,8 @@ ros2 run mypkg listener
 ros2 run mypkg talker
 ```
 
-送信側は0度から240度まで15度刻みで値を送信し、受信側で以下のように変換結果が表示されます。` [INFO] [listener]: 受信: 15 deg -> 変換後: 0.2618 rad `
+送信側は0度から240度まで15度刻みで値を送信し、受信側で以下のように変換結果が表示されます。
+` [INFO] [listener]: 受信: 15 deg -> 変換後: 0.2618 rad `
 
 ## テスト方法
 リポジトリ直下の test/test.bash を実行することで、ノード間の通信と角度計算の正確性を一括でチェックします。
