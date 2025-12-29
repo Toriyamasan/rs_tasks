@@ -18,13 +18,13 @@ setup(
     zip_safe=True,
     maintainer='ryougasan21',
     maintainer_email='s24c1136ww@s.chibakoudai.jp',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='Degree to Radian converter package',
+    license='GPL-3.0-only',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
             'talker = mypkg.talker:main',
-            'listener = mypkg.listener:main', # ★修正：コメントアウト(#)を外しました。これがないとListenerが動きません
-        ],
+            'listener = mypkg.listener:main',
+            ],
     },
 )
