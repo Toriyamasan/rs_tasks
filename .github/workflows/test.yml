@@ -1,0 +1,17 @@
+name: test
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    container: ryuichiueda/ubuntu22.04-ros2-desktop-full:latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: build and test
+        shell: bash
+        run: |
+          source /opt/ros/humble/setup.bash
+          cd ..
+          mkdir -p ros2_ws/src
+          mv rs_tasks ros2_ws/src/mypkg
+          cd ros2_ws
+          colcon build
